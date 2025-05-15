@@ -33,11 +33,16 @@ function createdb() {
     project_id INT NOT NULL,
     createat TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY(project_id) REFERENCES project(id))";
+    $setting= "CREATE TABLE IF NOT EXISTS settings(
+    value VARCHAR(50),
+    settings VARCHAR(255)
+    )";
     
     try {
         $db->exec($sql1);
         $db->exec($sql2);
         $db->exec($sql3);
+        $db->exec($setting);
     } catch(PDOException $e) {
         die("Database creation error: " . $e->getMessage());
     }

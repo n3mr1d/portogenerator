@@ -44,7 +44,8 @@ function navbar() {
     
 
     // Generate desktop navigation
-    echo '<nav class="desktop-nav" id="desktop-nav">';
+    // echo'<div id="main-kontainer">';
+    echo '<nav class="desktop-nav normal" id="desktop-nav">';
     echo '<div class="kontainer-nav">';
     echo '<a href="/" class="logo-container">';
     echo '<div class="logo-kontainer"><img class="imglogo" src="resource/src/logo/logo.svg"><span class="titlelogo">N3mr1d.dev</span></div>';
