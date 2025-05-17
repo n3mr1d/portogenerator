@@ -6,6 +6,7 @@ define("DBPASS","180406");
 define("DBUSER","root");
 // autoload config
 require_once __DIR__ . '/autoload.php';
+route();
 /**
  * print start function
  * 
@@ -23,7 +24,8 @@ function print_start(string $title, string $css=""){
         <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
-        ';
+<link rel="icon" href="resource/src/logo/logo.svg">        
+';
      
    
     if(empty($css)){
@@ -46,9 +48,6 @@ function showhome(){
   
     print_start('home','home');
 echo<<<HTML
-<div class="theme-toggle">
-    <button id="theme-switch"><i class="fas fa-moon"></i></button>
-</div>
 
 <div class="kontainer-hero">
     <div class="kontainer-photo">

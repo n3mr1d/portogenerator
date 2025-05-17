@@ -11,6 +11,7 @@
     --font-color-white: #ffffff;
     --accent-color: #6b6b6b;
     --hover-color: #838383;
+    --effect: #1a1a1a;
     --icon-color: #89adcd;
     --shadow-color: rgba(0, 0, 0, 0.2);
 }
@@ -76,11 +77,15 @@ body {
     color: white;
   }
   .desktop-nav.normal{
-    background: linear-gradient(135deg, var(--bg-main), #1a1a1a);
+    background: linear-gradient(135deg, var(--bg-main), var(--effect));
     background-size: 200% 200%;
     animation: gradientAnimation 10s ease infinite;
 
   }
+  .desktop-nav.darknav{
+    background-color: white;
+  }
+  
 .kontainer-nav {
     display: flex;
     align-items: center;

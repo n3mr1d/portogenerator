@@ -19,3 +19,4 @@ function autoload(string $fun) {
 autoload('navbar');
 autoload('database');
 autoload('route');
+autoload('form');

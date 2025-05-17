@@ -37,12 +37,24 @@ function createdb() {
     value VARCHAR(50),
     settings VARCHAR(255)
     )";
-    
+    $role = "CREATE TABLE IF NOT EXISTS roles
+    (
+    id INT AUTO_INCREMENT PRIMARY KEY, 
+    role VARCHAR(255),
+    creat TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )";
+    $user =  "CREATE TABLE IF NOT EXISTS admins(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) unique,
+    password VARCHAR(255),
+    creat TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
     try {
         $db->exec($sql1);
         $db->exec($sql2);
         $db->exec($sql3);
         $db->exec($setting);
+        $db->exec($role);
+        $db->exec($user);
     } catch(PDOException $e) {
         die("Database creation error: " . $e->getMessage());
     }

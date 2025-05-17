@@ -6,7 +6,7 @@
     justify-content: center;
     min-height: 90vh;
     padding: 2rem;
-    background: linear-gradient(135deg, var(--bg-main), #1a1a1a);
+    background: linear-gradient(135deg, var(--bg-main), var(--effect));
     background-size: 200% 200%;
     animation: gradientAnimation 10s ease infinite;
     position: relative;
@@ -15,6 +15,7 @@
 .title-social{
     color:var(--font-color-white);
     font-weight: bolder;
+    text-align: center;
     padding: 10px 0px;
 }
 @media (min-width: 768px) {
@@ -36,9 +37,15 @@
 }
 .kontainer-social{
   display: block;
-  border-style:groove;
+  text-align: center;
   padding: 10px;
-  border: 1px var(--icon-color) solid;
+  border: 2px var(--icon-color) solid;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+
+}
+.kontainer-social:hover{
+    box-shadow: 9px 10px  rgba(137, 173, 205, 0.5);
+    transform: translateY(-10px);
 }
 .kontainerbook{
   display:inline-block;
