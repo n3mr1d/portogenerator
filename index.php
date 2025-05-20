@@ -1,4 +1,7 @@
 <?php 
+use Dom\HTMLCollection;
+
+
 // config db
 define("DBHOST","localhost");
 define("DBNAME","porto");
@@ -166,3 +169,64 @@ HTML;
 function endhtml(){
     echo'</body></html>';
 }
+// function show donatee 
+function donate() {
+  print_start('donate','donate');
+  echo<<<HTML
+<div class="kontainerbox">
+  <h1 class="title-donation">Donation</h1>
+  <section class="kontainerkoin crypto">
+<h1 class="title-btc">
+Crypto currency
+</h1>
+</section>
+<section class="kotainerbox online">
+<h1>
+wallet online
+</h1>
+<code
+  </section>
+</div>  
+HTML;
+}
+
+// function show list 
+
+function showtable(){
+global $db;
+// fetch databaseLl
+$dbarray = "SELECT * FROM project";
+$stmt = $db->prepare($dbarray);
+$stmt->execute();
+  $ron = $stmt->fetchAll(PDO::FETCH_OBJ);
+          echo<<<HTML
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>action</th>
+    </tr>
+  HTML;
+
+  $id = 0;
+foreach($ron as $row) {
+    $id++;
+    echo '<tr>';
+      echo '<td>' . $id . '</td>';
+      echo '<td>' . htmlspecialchars($row->title) . '</td>';
+      echo '<td>';
+        echo '<form action="index.php" method="GET">';
+          echo '<input type="hidden" name="action" value="edit">';
+          echo '<input type="hidden" name="id"     value="' . $row->id . '">';
+          echo '<button type="submit">Edit</button>';
+        echo '</form> ';
+        
+        echo '<form action="" method="POST">';
+          echo '<input type="hidden" name="action" value="delete">';
+          echo '<input type="hidden" name="id"     value="' . $row->id . '">';
+          echo '<button type="submit">Delete</button>';
+        echo '</form>';
+      echo '</td>';
+    echo '</tr>';
+}
+};
