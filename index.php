@@ -79,10 +79,8 @@ echo<<<HTML
 <!-- </div> -->
 
 <section class="about-section">
-    <h2 class="section-title">About Me</h2>
-    <div class="about-content">
-        <p>I am a passionate web developer with expertise in PHP, JavaScript, and modern web technologies. With a strong background in cybersecurity, I create secure and efficient web applications.</p>
-    </div>
+
+
 </section>
 
 <section class="skills-section">
@@ -169,27 +167,6 @@ HTML;
 function endhtml(){
     echo'</body></html>';
 }
-// function show donatee 
-function donate() {
-  print_start('donate','donate');
-  echo<<<HTML
-<div class="kontainerbox">
-  <h1 class="title-donation">Donation</h1>
-  <section class="kontainerkoin crypto">
-<h1 class="title-btc">
-Crypto currency
-</h1>
-</section>
-<section class="kotainerbox online">
-<h1>
-wallet online
-</h1>
-<code
-  </section>
-</div>  
-HTML;
-}
-
 // function show list 
 
 function showtable(){
@@ -230,3 +207,124 @@ foreach($ron as $row) {
     echo '</tr>';
 }
 };
+function showdonate(){
+  print_start('donate','donate');
+  
+  // Fetch cryptocurrency data from database
+  global $db;
+  $crypto_query = "SELECT * FROM cry ORDER BY name ASC";
+  $stmt = $db->prepare($crypto_query);
+  $stmt->execute();
+  $cryptocurrencies = $stmt->fetchAll(PDO::FETCH_OBJ);
+  
+  jsallow('donate'); // Assuming jsallow function exists to include JS files
+  
+echo<<<HTML
+  <section class="kontainer-donate">
+    <div class="donate-header">
+      <h1>Support Our Project</h1>
+      <p class="donate-subtitle">Your contribution helps us continue building amazing features</p>
+    </div>
+    
+    <div class="donate-options">
+      <div class="donate-tabs">
+        <button class="tab-btn active" data-target="crypto">Cryptocurrency</button>
+        <button class="tab-btn" data-target="bank">Bank Transfer</button>
+        <button class="tab-btn" data-target="other">Other Methods</button>
+      </div>
+      
+      <div class="tab-content active" id="crypto-tab">
+        <div class="crypto-explanation">
+          <h3>Donate with Cryptocurrency</h3>
+          <p>Cryptocurrency donations are secure, fast, and have lower transaction fees.</p>
+        </div>
+        
+        <div class="kontainer-coin">
+HTML;
+
+  // Display cryptocurrency options
+  foreach($cryptocurrencies as $crypto) {
+    echo<<<HTML
+          <div class="coin-card">
+            <div class="coin-icon">
+              <i class="fa {$crypto->icon}" aria-hidden="true"></i>
+            </div>
+            <div class="coin-details">
+              <h4>{$crypto->name}</h4>
+              <div class="address-container">
+                <input type="text" class="crypto-address" value="{$crypto->addre}" readonly>
+                <button class="copy-btn" data-address="{$crypto->addre}">
+                  <i class="fa fa-copy"></i>
+                </button>
+              </div>
+              <div class="qr-container" id="qr-{$crypto->id}"></div>
+            </div>
+          </div>
+HTML;
+  }
+
+echo<<<HTML
+        </div>
+      </div>
+      
+      <div class="tab-content" id="bank-tab">
+        <div class="bank-details">
+          <h3>Bank Transfer Details</h3>
+          <div class="bank-info">
+            <p><strong>Bank Name:</strong> Example Bank</p>
+            <p><strong>Account Name:</strong> Project Fund</p>
+            <p><strong>Account Number:</strong> 1234-5678-9012-3456</p>
+            <p><strong>SWIFT/BIC:</strong> EXAMPLEXXX</p>
+            <p><strong>Reference:</strong> Please include "Donation" in the reference</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="tab-content" id="other-tab">
+        <div class="other-methods">
+          <h3>Other Donation Methods</h3>
+          <div class="method-cards">
+            <div class="method-card">
+              <i class="fa fa-credit-card"></i>
+              <h4>Credit Card</h4>
+              <p>Coming soon</p>
+            </div>
+            <div class="method-card">
+              <i class="fa fa-paypal"></i>
+              <h4>PayPal</h4>
+              <p>Coming soon</p>
+            </div>
+            <div class="method-card">
+              <i class="fa fa-gift"></i>
+              <h4>Gift Cards</h4>
+              <p>Coming soon</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="donation-faq">
+      <h3>Frequently Asked Questions</h3>
+      <div class="faq-item">
+        <div class="faq-question">How are donations used?</div>
+        <div class="faq-answer">Your donations directly support server costs, development, and new features.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Are donations tax-deductible?</div>
+        <div class="faq-answer">Please consult with your tax advisor regarding the tax deductibility of your donation.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Can I donate anonymously?</div>
+        <div class="faq-answer">Yes, cryptocurrency donations can be made anonymously.</div>
+      </div>
+    </div>
+    
+    <div class="donation-thankyou">
+      <h2>Thank You For Your Support!</h2>
+      <p>Every donation, no matter the size, makes a difference to our project.</p>
+    </div>
+  </section>
+HTML;
+  endhtml();
+}

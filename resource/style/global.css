@@ -7,7 +7,7 @@
 :root {
     --bg-color-white: #fde5e5d7;
     --bg-color-dark-navbar: #131d25;
-    --bg-main: #242424;
+    --bg-main: #292828;
     --font-color-white: #ffffff;
     --accent-color: #6b6b6b;
     --hover-color: #838383;
@@ -31,6 +31,10 @@
 
 body {
     background-color: var(--bg-main);
+  display:flex;
+  flex-direction: column;
+  justify-content:center;
+  font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
 }
 .imglogo{
     width:60%;

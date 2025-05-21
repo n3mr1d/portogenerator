@@ -10,8 +10,8 @@ function route(){
         return;
     }elseif(isset($_POST['username']) && isset($_POST['register'])){
         if(isAdminsTableEmpty()){
-            registeradmin($_POST['username'], $_POST['password']);
-            header("Location: /login");
+            registeradmin($_POST['username'],$_POST['password']);
+            loginform();
             exit;
         }else{
             loginform();
@@ -33,7 +33,11 @@ function route(){
         showaddprojectform();
     }elseif($get['action'] == 'edit'){
     editingpage($get['id']);
+    }elseif($path=="/donate"){
+    showdonate();
+  }elseif($path == "/settings"){
+    showsettings();
   }else{
     showhome();
-    }
+  }
 }

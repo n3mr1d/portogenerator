@@ -18,7 +18,12 @@ function createdb() {
     demo VARCHAR(255) NOT NULL,
     statuspo ENUM('complated','ongoing') NOT NULL default 'ongoing',
     uploadat TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
-
+    $crypto = "CREATE TABLE IF NOT EXISTS cry(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    addre VARCHAR(255) NOT NULL,
+    icon VARCHAR(255) NOT NULL DEFAULT 'fa-coins',
+    creatat TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
     $sql2 = "CREATE TABLE IF NOT EXISTS image(
     id INT AUTO_INCREMENT PRIMARY KEY,
     project_id INT NOT NULL,
@@ -55,6 +60,7 @@ function createdb() {
         $db->exec($setting);
         $db->exec($role);
         $db->exec($user);
+        $db->exec($crypto);
     } catch(PDOException $e) {
         die("Database creation error: " . $e->getMessage());
     }

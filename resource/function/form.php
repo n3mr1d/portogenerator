@@ -1,28 +1,32 @@
-<?php 
-function loginform(){
-    print_start('login','login');
-    echo<<<HTML
-    <div class="kontainer-login">
-        <div class="title-login">
-        <h3 class="login-admin">Login Admin</h3>
-        </div>
-        <div class="groupform">
-        <form action="" method="POST">
-            <input type="hidden" name="login">
-            <label for="username">Username:</label> 
-            <input type="text" name="username" id="username">
-            <label  for="password">Password:</label>
-            <input type="password" name="password"  id="password">
-            <button type="submit"> Login </button>
-        </form>
-        </div>
+<?php
 
+function loginform(){
+  print_start('login','login');
+    echo<<<HTML
+      <div class="kontainer-login">
+        <div class="form-kontainer">  
+          <h3 class="login-admin">Login Admin</h3>
+          <form action="" method="POST">
+            <input type="hidden" name="login">
+            <div class="form-group">
+              <label for="username">Username:</label> 
+              <input type="text" name="username" id="username" required>
+            </div>
+            <div class="form-group">
+              <label for="password">Password:</label>
+              <input type="password" name="password" id="password" required>
+            </div>
+            <button type="submit" class="btn-login">Login</button>
+          </form>
         </div>
-    HTML;
+      </div>
+HTML;
     endhtml();
 }
 
+
 function validate($username, $password){
+
 //   check apakah  ini valid atau tidak
 global $db;
 try{
@@ -43,23 +47,25 @@ echo'salah';
 }
 // regitser 
 function regis(){
-    print_start('regis','login');
+    print_start('register','login');
     echo<<<HTML
-    <div class="kontainer-regiter">
-        <div class="title-register">
+      <div class="kontainer-regiter">
+        <div class="kontainer-reg">
         <h3 class="regitser-admin">regitser Admin</h3>
-        </div>
-        <div class="groupform">
-        <form action="" method="POST">
+          <form action="" method="POST">
+            <div class="form-group">
             <input type="hidden" name="register">
             <label for="username">Username:</label> 
-            <input type="text" name="username" id="username">
+            </div>
+            <div class="form-group">
+              <input type="text" name="username" id="username">
             <label  for="password">Password:</label>
             <input type="password" name="password"  id="password">
-            <button type="submit"> register </button>
-        </form>
-        </div>
-
+              </div>
+              <button type="submit" class="btn-login" > register </button>
+          </form>
+      
+         </div>
         </div>
     HTML;
     endhtml();
@@ -413,4 +419,33 @@ $deldata = "DELETE FROM project WHERE id = :id";
     echo "gagal menghapus ada kesalah $e";
   }
 
+}
+// function form untuk menambahkan crypto coin
+function showsettings() {
+  print_start('settingcry', 'settingscry');
+  echo <<<HTML
+  <section>
+    <div class="kontainer-form">
+      <h1 class="title-crypto">Add Crypto Currency</h1>
+      <form action="" method="POST">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="address">Address:</label>
+          <input type="text" id="address" name="address" required>
+        </div>
+        <div class="form-group">
+          <label for="icon">Icon URL:</label>
+          <input type="text" id="icon" name="icon" required>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="submit-btn">Add Currency</button>
+        </div>
+      </form>
+    </div>
+  </section>
+HTML;
+  endhtml();
 }
