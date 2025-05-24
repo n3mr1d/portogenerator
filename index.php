@@ -1,5 +1,4 @@
 <?php 
-use Dom\HTMLCollection;
 
 
 // config db
@@ -15,7 +14,7 @@ route();
  * 
  * @param string $css,$title,$js
  */
-
+$error= '';
 
 function print_start(string $title, string $css=""){
   echo'  <!DOCTYPE html>
@@ -48,22 +47,24 @@ function jsallow(string $name){
         echo'<script src="/resource/script/'. $name .'.js"></script>';
 }
 function showhome(){
-  
+
     print_start('home','home');
-echo<<<HTML
+    shownotification();
+  echo<<<HTML
 
 <div class="kontainer-hero">
     <div class="kontainer-photo">
-        <img src="/resource/images/profile.jpg" alt="Profile Picture">
+        <img src="/resource/src/nameraid.png" alt="Profile Picture">
     </div>
     <div class="kontainer-text">
-        <div class="animation-text">
+    <div class="animation-text">
+      <div id="text"><span>|</span></div>
             <span id="autotext1"></span><span id="cursor">|</span>
-            <div class="kontainer-subtitle">
+      <div class="kontainer-subtitle">
             <div class="kontainerbox">
                 <span class="subtitle" id="roleText"></span>
 </div>
-                <span class="subtitle">Just Developer Amatir</span>
+     
             </div>
         </div>
         <div class="kontainer-social">
@@ -79,38 +80,56 @@ echo<<<HTML
 <!-- </div> -->
 
 <section class="about-section">
+  <h2 class="section-title">About</h2>
+  <div class="kontainer-isitext">
+     <div class="border-img">
+      <img src="https://placehold.co/200x200">
+      <span id="role">Noob</span>
 
+    </div>
+  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto voluptatibus maxime debitis rerum sunt ex error numquam nisi minus, ipsa reiciendis corporis? Laboriosam odio vel quod saepe maiores explicabo recusandae, praesentium vero sed tenetur laborum iusto, amet voluptates deserunt.</p>
+   </div> 
 
 </section>
-
+<section class="section-history">
+<h2 class="section-title">Graduate</h2>
+</section>
 <section class="skills-section">
     <h2 class="section-title">My Skills</h2>
     <div class="skills-container">
+      <img src="https://placehold.co/90x90" alt="">
         <div class="skill-item">
-            <div class="skill-name">PHP</div>
-            <div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div>
-        </div>
-        <div class="skill-item">
-            <div class="skill-name">JavaScript</div>
-            <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>
-        </div>
-        <div class="skill-item">
-            <div class="skill-name">HTML/CSS</div>
-            <div class="skill-bar"><div class="skill-progress" style="width: 95%"></div></div>
-        </div>
-        <div class="skill-item">
-            <div class="skill-name">Cybersecurity</div>
-            <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>
+            <div class="skill-name"><span class="title-skill">PHP</span> <span class="title-present">90%</span></div>
+            
+            <div class="skill-bar">
+              <div class="skill-progress" style="width: 90%">
+
+              </div></div>
         </div>
     </div>
 </section>
 
+<section class="section-certification">
+<h2 class="section-title">Certification</h2>
+  <div class="box-serifikat">
+    <img src="https://placehold.co/300x200">
+  <h3 class="title-sertif">example</h3> 
+  <div class="linkhref">
+  <a href="https://google.com">view more <i class="fa fa-arrow-circle-right"></i></a></span>
+</div>  
+</div>
+    
+</section>   
 <section class="projects-section">
     <h2 class="section-title">Featured Projects</h2>
     <div class="projects-container">
         <div class="project-card">
             <div class="project-image">
-                <img src="/resource/images/project1.jpg" alt="Project 1">
+              <div class="showlink">
+              <a href="#"><i class="fab fa-github"></i> Github</a>
+              <a href="#"><i class="fas fa-external-link-alt"></i> Demo</a>
+              </div>
+                <img src="https://placehold.co/400x400" alt="Project 1">
             </div>
             <div class="project-info">
                 <h3>E-Commerce Platform</h3>
@@ -120,23 +139,9 @@ echo<<<HTML
                     <span class="tag">MySQL</span>
                     <span class="tag">JavaScript</span>
                 </div>
-                <a href="#" class="project-link">View Project</a>
             </div>
         </div>
-        <div class="project-card">
-            <div class="project-image">
-                <img src="/resource/images/project2.jpg" alt="Project 2">
-            </div>
-            <div class="project-info">
-                <h3>Security Audit Tool</h3>
-                <p>Web application vulnerability scanner with detailed reporting</p>
-                <div class="project-tags">
-                    <span class="tag">PHP</span>
-                    <span class="tag">Security</span>
-                    <span class="tag">API</span>
-                </div>
-                <a href="#" class="project-link">View Project</a>
-            </div>
+   
         </div>
     </div>
 </section>
@@ -168,6 +173,26 @@ function endhtml(){
     echo'</body></html>';
 }
 // function show list 
+
+function showNotification() {
+    if (!empty($_SESSION['error'])) {
+        $error = htmlspecialchars($_SESSION['error']); // Mencegah XSS
+
+        echo <<<HTML
+        <div class="kontainer-notif">
+            <div class="kontainer-icon">
+                <i class="fa fa-exclamation-triangle"></i>
+            </div>
+            <div class="kontainer-isi">
+                <span class='item-isi'>{$error}</span>
+            </div>
+        </div>
+        HTML;
+
+        unset($_SESSION['error']); // Hapus hanya error, bukan seluruh session
+    }
+}
+
 
 function showtable(){
 global $db;
@@ -221,45 +246,39 @@ function showdonate(){
   
 echo<<<HTML
   <section class="kontainer-donate">
-    <div class="donate-header">
-      <h1>Support Our Project</h1>
-      <p class="donate-subtitle">Your contribution helps us continue building amazing features</p>
-    </div>
-    
+
     <div class="donate-options">
-      <div class="donate-tabs">
-        <button class="tab-btn active" data-target="crypto">Cryptocurrency</button>
-        <button class="tab-btn" data-target="bank">Bank Transfer</button>
-        <button class="tab-btn" data-target="other">Other Methods</button>
-      </div>
-      
+
       <div class="tab-content active" id="crypto-tab">
         <div class="crypto-explanation">
-          <h3>Donate with Cryptocurrency</h3>
+          <h1 class="section-title">Donate</h1>
           <p>Cryptocurrency donations are secure, fast, and have lower transaction fees.</p>
         </div>
-        
+                  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
         <div class="kontainer-coin">
 HTML;
 
   // Display cryptocurrency options
-  foreach($cryptocurrencies as $crypto) {
-    echo<<<HTML
-          <div class="coin-card">
-            <div class="coin-icon">
-              <i class="fa {$crypto->icon}" aria-hidden="true"></i>
-            </div>
-            <div class="coin-details">
-              <h4>{$crypto->name}</h4>
-              <div class="address-container">
-                <input type="text" class="crypto-address" value="{$crypto->addre}" readonly>
-                <button class="copy-btn" data-address="{$crypto->addre}">
-                  <i class="fa fa-copy"></i>
-                </button>
-              </div>
-              <div class="qr-container" id="qr-{$crypto->id}"></div>
-            </div>
-          </div>
+foreach($cryptocurrencies as $crypto) {
+  $inputId = "address-" . md5($crypto->addre); 
+
+  echo <<<HTML
+    <div class="coin-card">
+      <div class="coin-icon">
+        <i class="fa {$crypto->icon}" aria-hidden="true"></i>
+      </div>
+      <div class="coin-details">
+        <h4>{$crypto->name}</h4>
+        <div class="address-container">
+          <input type="text" class="crypto-address" id="$inputId" value="{$crypto->addre}" readonly>
+     <button class="copy-btn" data-address="{$crypto->addre}">
+  <i class="fa fa-copy"></i>
+</button>
+        </div>
+
+      </div>
+    </div>
 HTML;
   }
 
@@ -267,42 +286,7 @@ echo<<<HTML
         </div>
       </div>
       
-      <div class="tab-content" id="bank-tab">
-        <div class="bank-details">
-          <h3>Bank Transfer Details</h3>
-          <div class="bank-info">
-            <p><strong>Bank Name:</strong> Example Bank</p>
-            <p><strong>Account Name:</strong> Project Fund</p>
-            <p><strong>Account Number:</strong> 1234-5678-9012-3456</p>
-            <p><strong>SWIFT/BIC:</strong> EXAMPLEXXX</p>
-            <p><strong>Reference:</strong> Please include "Donation" in the reference</p>
-          </div>
-        </div>
-      </div>
-      
-      <div class="tab-content" id="other-tab">
-        <div class="other-methods">
-          <h3>Other Donation Methods</h3>
-          <div class="method-cards">
-            <div class="method-card">
-              <i class="fa fa-credit-card"></i>
-              <h4>Credit Card</h4>
-              <p>Coming soon</p>
-            </div>
-            <div class="method-card">
-              <i class="fa fa-paypal"></i>
-              <h4>PayPal</h4>
-              <p>Coming soon</p>
-            </div>
-            <div class="method-card">
-              <i class="fa fa-gift"></i>
-              <h4>Gift Cards</h4>
-              <p>Coming soon</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+
     
     <div class="donation-faq">
       <h3>Frequently Asked Questions</h3>
@@ -327,4 +311,11 @@ echo<<<HTML
   </section>
 HTML;
   endhtml();
+}
+function getsetting($setting){
+  global $db;
+  $query = "SELECT * FROM settings WHERE settings = ?";
+  $stmt = $db->prepare($query);
+  $stmt->execute([$setting]);
+  return $stmt->fetch(PDO::FETCH_ASSOC);
 }

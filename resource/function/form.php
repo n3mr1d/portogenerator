@@ -1,10 +1,14 @@
 <?php
-
+// menampilkan login form
 function loginform(){
-  print_start('login','login');
-    echo<<<HTML
-      <div class="kontainer-login">
-        <div class="form-kontainer">  
+  print_start('login','login');  
+  echo<<<HTML
+  <div class="kontainer-login">
+  <div class="form-kontainer">
+  HTML;
+  shownotification();
+  echo<<<HH
+      
           <h3 class="login-admin">Login Admin</h3>
           <form action="" method="POST">
             <input type="hidden" name="login">
@@ -20,31 +24,33 @@ function loginform(){
           </form>
         </div>
       </div>
-HTML;
+  HH;
     endhtml();
 }
+// validate login passwordd
+function validate($username, $password) {
+    global $db, $error;
 
+    try {
+        $cekuser = "SELECT * FROM admins WHERE username = :user";
+        $stmt = $db->prepare($cekuser);
+        $stmt->bindParam(':user', $username);
+        $stmt->execute();
 
-function validate($username, $password){
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-//   check apakah  ini valid atau tidak
-global $db;
-try{
-$cekuser = "SELECT * FROM admins WHERE username = :user ";
-$stmt= $db->prepare($cekuser);
-$stmt->bindParam(':user',$username);
-$stmt->execute();
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
-var_dump($user);
-if($user && password_verify($password,PASSWORD_DEFAULT)){
-    echo'berhasil login';
-}else{
-echo'salah';
+        if ($user && password_verify($password, $user['password'])) {
+            $_SESSION['success'] = "Berhasil masuk!";
+        } else {
+            $_SESSION['error'] = "Username atau password salah!";
+            loginform();
+        }
+    } catch (Exception $e) {
+        $_SESSION['error'] = "Terjadi kesalahan: " . $e->getMessage();
+
+    }
 }
-}catch(Exception $e){
-    echo"error: " . $e->getMessage();
-}
-}
+
 // regitser 
 function regis(){
     print_start('register','login');
@@ -86,7 +92,7 @@ function isAdminsTableEmpty() {
         return false; 
     }
 }
-
+// function untuk menambahkan admin apabila database kkosong
 function registeradmin($username,$password){
     global $db;
     // insert to dattabase
@@ -98,7 +104,10 @@ function registeradmin($username,$password){
     $stmt =$db->prepare($register);
     $stmt->bindParam(':user',$user);
     $stmt->bindParam(':pass',$passwordhash);
-    $stmt->execute();
+    if($stmt->execute()){
+      $_SESSION['error'] = "Kamu Berhasil melakukan register";
+      showhome();
+    }
     }catch(Exception $e){
         echo'Error: ' . $e->getMessage();
     }
@@ -115,11 +124,14 @@ function showaddprojectform() {
     
     print_start("addproject","showform");
     echo<<<HTML
-    <div class="kontainer-form">
+      <div class="kontainer-form">
         <div class="form-header">
             <h2>Add New Project</h2>
             <p>Fill in the details below to add a new project to your portfolio</p>
         </div>
+HTML;
+    shownotification();
+    echo<<<HTML
         <div class="kontainer-text">
             <form action="" method="POST" enctype="multipart/form-data" id="projectForm">
                 <input type="hidden" name="inputproject">
@@ -149,7 +161,7 @@ function showaddprojectform() {
                     <label for="progres">Project Status</label>
                     <select name="statuspo" id="progres">
                         <option value="ongoing">Ongoing</option>
-                        <option value="complated">Completed</option>
+                        <option value="completed">Completed</option>
                     </select>
                 </div>
                 
@@ -175,7 +187,7 @@ function showaddprojectform() {
                 <div class="form-group">
                     <label for="project_images">Project Images <span class="required">*</span></label>
                     <div class="file-upload-container">
-                        <input type="file" id="project_images" name="imgup"   accept="image/*" required>
+                        <input type="file" id="project_images" name="imgup" accept="image/*" required>
                         <div class="upload-button">
                             <i class="fas fa-cloud-upload-alt"></i> Choose Files
                         </div>
@@ -189,11 +201,10 @@ function showaddprojectform() {
                 </div>
             </form>
         </div>
-    </div>
-
-    HTML;
-jsallow('showproject');
-endhtml();
+     </div>
+HTML;
+    jsallow('showproject');
+    endhtml();
 }
 
 // Function to handle project submission
@@ -259,7 +270,7 @@ function handleProjectSubmission() {
         $targetFile = $uploadDir . $fileName;
 
         if (move_uploaded_file($_FILES['imgup']['tmp_name'], $targetFile)) {
-            var_dump($targetFile);
+
 
             $relativePath = '/upload/' . $fileName;
             $imageStmt = $db->prepare("INSERT INTO image (project_id, path_image) VALUES (:project_id, :path_image)");
@@ -269,15 +280,16 @@ function handleProjectSubmission() {
         }
         
         $db->commit();
-        
+        $_SESSION['error'] = "Berhasil Memambahan project kedalam database";
+
         exit;
-        
     } catch (Exception $e) {
         // Rollback transaction on error
         $db->rollBack();
-        echo "<div class='error-message'>Error: " . $e->getMessage() . "</div>";
+         $_SESSION['error'] = "Error: " . $e->getMessage() ;
     }
 }
+// function untukk melakkuan editing data pada project feature
 function editingpage($id){
   global $db;
 
@@ -304,7 +316,7 @@ function editingpage($id){
   $tags = array_map(function($row) {
     return $row->tag;
   }, $tagRows);
-  $tagsString = htmlspecialchars(implode(", ", $tags)); // misalnya: "php, html, css"
+  $tagsString = htmlspecialchars(implode(", ", $tags)); 
 
   print_start("editing", "editing");
 $selectedDraft = $data->statuspo === 'complated' ? 'selected' : '';
@@ -395,11 +407,13 @@ $db->beginTransaction();
   $stmt->bindParam(':id', $id, PDO::PARAM_INT);
   $stmt->execute();
   $db->commit();
+  $_SESSION['error'] = "Data Berhasil di update"; 
   }catch(Exception $e){
     $db->rollBack();
     echo "gagal memperbarui data dengan error " . $e->getMessage();
   }
 }
+// function untukk menghapus table
 function del(int $id){
   global $db;
   try {
@@ -413,7 +427,7 @@ $deldata = "DELETE FROM project WHERE id = :id";
     $stmt->execute();
     $stmt2->execute();
     $db->commit();
-    echo"berhasil meghapus database $id";
+    $_SESSION['error'] = "Berhasil Menghapus data $id";
   }catch(PDOException $e){
     $db->rollBack();
     echo "gagal menghapus ada kesalah $e";
@@ -428,6 +442,7 @@ function showsettings() {
     <div class="kontainer-form">
       <h1 class="title-crypto">Add Crypto Currency</h1>
       <form action="" method="POST">
+        <input type="hidden" name="action" value="addcry">
         <div class="form-group">
           <label for="name">Name:</label>
           <input type="text" id="name" name="name" required>
@@ -446,6 +461,25 @@ function showsettings() {
       </form>
     </div>
   </section>
-HTML;
+  HTML;
   endhtml();
+}
+// function untuk menambahkan skill section
+function uploadskil(int $percentage, string $name, string $namesvg){
+global $db;
+try {
+  $db->beginTransaction();
+$svgContent = file_get_contents($_FILES['svg_file']['tmp_name']); 
+$sql = "INSERT INTO skill(svg_name,skill,svg_content,percentage) VALUES(:svgname,:name,:svgcontent,:percentage)";
+$stmt = $db->prepare($sql);
+$stmt->bindParam(':svgname',$namesvg);
+$stmt->bindParam(':name',$name);
+$stmt->bindParam(':svgcontent',$svgContent);
+$stmt->bindParam(':percentage',$percentage);
+$stmt->execute();
+$db->commit();
+}catch(Exception $e){
+  $db->rollBack();
+echo"Fatal Error" . $e->getMessage();
+}
 }

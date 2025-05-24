@@ -14,10 +14,9 @@
 }
 
 .kontainer-donate {
-  max-width: 1200px;
+
   color:var(--text-color);
-  margin: 0 auto;
-  padding: 2rem;
+
 }
 
 .donate-header {
@@ -41,9 +40,9 @@
 
 /* Tabs styling */
 .donate-options {
-  background-color: var(--card-bg);
-  border-radius: 12px;
-  box-shadow: var(--card-shadow);
+
+
+
   overflow: hidden;
   margin-bottom: 3rem;
 }
@@ -103,22 +102,19 @@
 .kontainer-coin {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
+  gap: 1rem;
 }
 
 .coin-card {
   background-color: rgba(255, 255, 255, 0.05);
   border-radius: 10px;
-  padding: 1.5rem;
+  padding: 20px 10px;
   display: flex;
   align-items: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.coin-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-}
+
 
 .coin-icon {
   font-size: 2rem;
@@ -209,11 +205,6 @@
   text-align: center;
   transition: transform 0.3s ease;
 }
-
-.method-card:hover {
-  transform: translateY(-5px);
-}
-
 .method-card i {
   font-size: 2rem;
   color: var(--accent-color);
@@ -229,9 +220,29 @@
   text-align: center;
   margin-bottom: 2rem;
 }
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--font-color-white);
+    margin-bottom: 3rem;
+    text-align: center;
+    position: relative;
+    padding-bottom: 1rem;
+}
 
+.section-title:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--icon-color);
+    border-radius: 2px;
+}
 .faq-item {
-  background-color: var(--card-bg);
+
   border-radius: 8px;
   margin-bottom: 1rem;
   overflow: hidden;
@@ -265,7 +276,7 @@
   text-align: center;
   margin-top: 3rem;
   padding: 2rem;
-  background-color: var(--card-bg);
+
   border-radius: 12px;
   box-shadow: var(--card-shadow);
 }

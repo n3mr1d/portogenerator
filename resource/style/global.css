@@ -7,7 +7,7 @@
 :root {
     --bg-color-white: #fde5e5d7;
     --bg-color-dark-navbar: #131d25;
-    --bg-main: #292828;
+  --bg-main: #131D25;
     --font-color-white: #ffffff;
     --accent-color: #6b6b6b;
     --hover-color: #838383;
@@ -268,3 +268,21 @@ body {
         margin-bottom: 70px;
     }
 }
+.kontainer-notif{
+  display:flex;
+justify-content:center;
+
+}
+.kontainer-icon, .kontainer-isi{
+  padding:10px;
+  border-radius:10px;
+  background-color:#FF4545;
+}
+.kontainer-isi{
+  width: 40%;
+  text-align:center;
+}
+.kontainer-icon i {
+  font-size:30px;
+}
+

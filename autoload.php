@@ -7,7 +7,7 @@
  * @return void
  */
 function autoload(string $fun) {
-    global $db;
+    global $db, $error;
     $path = __DIR__ . '/resource/function/' . $fun . '.php';
     if (file_exists($path)) {
         require_once $path;
@@ -20,3 +20,4 @@ autoload('navbar');
 autoload('database');
 autoload('route');
 autoload('form');
+autoload('validate');

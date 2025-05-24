@@ -21,6 +21,8 @@ function route(){
   del($_POST['id']);
   }elseif(isset($_POST['action']) && $_POST['action']=='update'){
     update($_POST['id']);
+  }elseif(isset($_POST['action']) && $_POST['action']=="addcry"){
+    addcry($_POST['name'],$_POST['address'],$_POST['icon']);
   }
   $get = $_GET;
   if(isAdminsTableEmpty()){

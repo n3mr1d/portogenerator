@@ -42,6 +42,13 @@ function createdb() {
     value VARCHAR(50),
     settings VARCHAR(255)
     )";
+    $certification = "CREATE TABLE IF NOT EXISTS certification(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    path_image VARCHAR(255) NOT NULL,
+    source VARCHAR(255) NOT NULL,
+    createat TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )";
     $role = "CREATE TABLE IF NOT EXISTS roles
     (
     id INT AUTO_INCREMENT PRIMARY KEY, 
@@ -53,6 +60,14 @@ function createdb() {
     username VARCHAR(255) unique,
     password VARCHAR(255),
     creat TIMESTAMP DEFAULT CURRENT_TIMESTAMP)";
+    $skill = "CREATE TABLE IF NOT EXISTS skill(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    skill VARCHAR(255),
+    percentage INT NOT NULL,
+    svg_name VARCHAR(255),
+    svg_content TEXT NOT NULL,
+    creat TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )";
     try {
         $db->exec($sql1);
         $db->exec($sql2);
@@ -61,6 +76,8 @@ function createdb() {
         $db->exec($role);
         $db->exec($user);
         $db->exec($crypto);
+        $db->exec($certification);
+        $db->exec($skill);
     } catch(PDOException $e) {
         die("Database creation error: " . $e->getMessage());
     }
