@@ -41,7 +41,9 @@ function validate($username, $password) {
 
         if ($user && password_verify($password, $user['password'])) {
             $_SESSION['success'] = "Berhasil masuk!";
-        } else {
+            $_SESSION['user_id'] = $user['id'];
+            showManage();
+          } else {
             $_SESSION['error'] = "Username atau password salah!";
             loginform();
         }
@@ -114,12 +116,6 @@ function registeradmin($username,$password){
 }
 // fungsi untuk menambahkan sebuah proyek baru
 function showaddprojectform() {
-    // Check if user is logged in
-    // if (!isset($_SESSION['user_id'])) {
-    //     header("Location: /login");
-    //     exit;
-    // }
-    
 
     
     print_start("addproject","showform");
@@ -436,7 +432,6 @@ $deldata = "DELETE FROM project WHERE id = :id";
 }
 // function form untuk menambahkan crypto coin
 function showsettings() {
-  print_start('settingcry', 'settingscry');
   echo <<<HTML
   <section>
     <div class="kontainer-form">
@@ -462,7 +457,6 @@ function showsettings() {
     </div>
   </section>
   HTML;
-  endhtml();
 }
 // function untuk menambahkan skill section
 function uploadskil(int $percentage, string $name, string $namesvg){

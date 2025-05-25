@@ -6,7 +6,26 @@ define("DBHOST","localhost");
 define("DBNAME","porto");
 define("DBPASS","180406");
 define("DBUSER","root");
-// autoload config
+
+// config history school
+$school = 
+["TK"=>['name'=>'Taman Kanak-Kanak',
+        'schoolname'=>'KARTIKA IV & VI',
+        'Tahun/ajaran'=>'2011/2013',
+        'deskrip'=>'loremipsum'],
+"SD"=>['name'=>'Sekolah Dasar',
+        'schoolname'=>'SDN Polehan 4 Malang',
+        'Tahun/ajaran'=>'2013/2019',
+        'deskrip'=>'lorem ipsum'],
+"SMP"=>['name'=>'Sekolah Menengah Pertama',
+        'schoolname'=>'SMP AL-Amin Malang',
+        'Tahun/ajaran'=>'2019/2022',
+        'deskrip'=>'lorem ipsum'],
+"SMA"=>['name'=>'Sekolah Menengah Atas',
+        'schoolname'=>'SMAN 1 Kota Malang',
+        'Tahun/ajaran'=>'2022/2025',
+        'deskrip'=>'lorem ipsum'] ];
+// autoload config function
 require_once __DIR__ . '/autoload.php';
 route();
 /**
@@ -14,6 +33,8 @@ route();
  * 
  * @param string $css,$title,$js
  */
+
+
 $error= '';
 
 function print_start(string $title, string $css=""){
@@ -45,129 +66,143 @@ echo'</head>
 }
 function jsallow(string $name){
         echo'<script src="/resource/script/'. $name .'.js"></script>';
-}
-function showhome(){
+}function showhome() {
+  global $school;
 
-    print_start('home','home');
-    shownotification();
-  echo<<<HTML
+  print_start('home', 'home');
+  shownotification();
 
-<div class="kontainer-hero">
-    <div class="kontainer-photo">
-        <img src="/resource/src/nameraid.png" alt="Profile Picture">
-    </div>
-    <div class="kontainer-text">
-    <div class="animation-text">
-      <div id="text"><span>|</span></div>
-            <span id="autotext1"></span><span id="cursor">|</span>
-      <div class="kontainer-subtitle">
-            <div class="kontainerbox">
-                <span class="subtitle" id="roleText"></span>
-</div>
-     
-            </div>
-        </div>
-        <div class="kontainer-social">
-        <span class="title-social">Connect With Me</span>
-        <div class="social-links">
-            <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
-            <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
-            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-        </div>
-        </div>
-    </div>
-</div>
-<!-- </div> -->
-
-<section class="about-section">
-  <h2 class="section-title">About</h2>
-  <div class="kontainer-isitext">
-     <div class="border-img">
-      <img src="https://placehold.co/200x200">
-      <span id="role">Noob</span>
-
-    </div>
-  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto voluptatibus maxime debitis rerum sunt ex error numquam nisi minus, ipsa reiciendis corporis? Laboriosam odio vel quod saepe maiores explicabo recusandae, praesentium vero sed tenetur laborum iusto, amet voluptates deserunt.</p>
-   </div> 
-
-</section>
-<section class="section-history">
-<h2 class="section-title">Graduate</h2>
-</section>
-<section class="skills-section">
-    <h2 class="section-title">My Skills</h2>
-    <div class="skills-container">
-      <img src="https://placehold.co/90x90" alt="">
-        <div class="skill-item">
-            <div class="skill-name"><span class="title-skill">PHP</span> <span class="title-present">90%</span></div>
-            
-            <div class="skill-bar">
-              <div class="skill-progress" style="width: 90%">
-
-              </div></div>
-        </div>
-    </div>
-</section>
-
-<section class="section-certification">
-<h2 class="section-title">Certification</h2>
-  <div class="box-serifikat">
-    <img src="https://placehold.co/300x200">
-  <h3 class="title-sertif">example</h3> 
-  <div class="linkhref">
-  <a href="https://google.com">view more <i class="fa fa-arrow-circle-right"></i></a></span>
-</div>  
-</div>
-    
-</section>   
-<section class="projects-section">
-    <h2 class="section-title">Featured Projects</h2>
-    <div class="projects-container">
-        <div class="project-card">
-            <div class="project-image">
-              <div class="showlink">
-              <a href="#"><i class="fab fa-github"></i> Github</a>
-              <a href="#"><i class="fas fa-external-link-alt"></i> Demo</a>
+  echo <<<HTML
+  <div class="kontainer-hero">
+      <div class="kontainer-photo">
+          <img src="/resource/src/nameraid.png" alt="Profile Picture">
+      </div>
+      <div class="kontainer-text">
+          <div class="animation-text">
+              <div id="text"><span>|</span></div>
+              <span id="autotext1"></span><span id="cursor">|</span>
+              <div class="kontainer-subtitle">
+                  <div class="kontainerbox">
+                      <span class="subtitle" id="roleText"></span>
+                  </div>
               </div>
-                <img src="https://placehold.co/400x400" alt="Project 1">
-            </div>
-            <div class="project-info">
-                <h3>E-Commerce Platform</h3>
-                <p>A secure online shopping platform built with PHP and MySQL</p>
-                <div class="project-tags">
-                    <span class="tag">PHP</span>
-                    <span class="tag">MySQL</span>
-                    <span class="tag">JavaScript</span>
-                </div>
-            </div>
-        </div>
-   
-        </div>
-    </div>
-</section>
+          </div>
+          <div class="kontainer-social">
+              <span class="title-social">Connect With Me</span>
+              <div class="social-links">
+                  <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                  <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                  <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+              </div>
+          </div>
+      </div>
+  </div>
 
-<section class="contact-section">
-    <h2 class="section-title">Get In Touch</h2>
-    <div class="contact-form">
-        <form id="contact-form">
-            <div class="form-group">
-                <input type="text" placeholder="Your Name" required>
-            </div>
-            <div class="form-group">
-                <input type="email" placeholder="Your Email" required>
-            </div>
-            <div class="form-group">
-                <textarea placeholder="Your Message" rows="5" required></textarea>
-            </div>
-            <button type="submit" class="submit-btn">Send Message</button>
-        </form>
-    </div>
-</section>
+  <section class="about-section">
+      <h2 class="section-title">About</h2>
+      <div class="kontainer-isitext">
+          <div class="border-img">
+              <img src="https://placehold.co/200x200" alt="Placeholder Image">
+              <span id="role">Noob</span>
+          </div>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto voluptatibus maxime debitis rerum sunt ex error numquam nisi minus, ipsa reiciendis corporis? Laboriosam odio vel quod saepe maiores explicabo recusandae, praesentium vero sed tenetur laborum iusto, amet voluptates deserunt.</p>
+      </div>
+  </section>
+
+  <section class="section-history">
+      <h2 class="section-title">Graduate</h2>
+      <div class="history-container">
+          <div class="timeline" id="education-timeline">
 HTML;
-    jsallow('home');
 
-    endhtml();
+  foreach ($school as $key => $isi) {
+      echo '<div class="timeline-item">
+              <div class="timeline-dot"></div>
+              <div class="timeline-content">
+                  <h3 class="timeline-title">' . $isi['name'] . '</h3>
+                  <h4 class="timeline-institution">' . $isi['schoolname'] . '</h4>
+                  <p class="timeline-date">' . $isi['Tahun/ajaran'] . '</p>
+                  <p class="timeline-description">'. $isi['deskrip'] .'</p>
+              </div>
+          </div>';
+  }
+
+  echo '
+          </div>
+      </div>
+  </section>
+
+  <section class="skills-section">
+      <h2 class="section-title">My Skills</h2>
+      <div class="skills-container">
+          <img src="https://placehold.co/90x90" alt="Skill Icon">
+          <div class="skill-item">
+              <div class="skill-name"><span class="title-skill">PHP</span> <span class="title-present">90%</span></div>
+              <div class="skill-bar">
+                  <div class="skill-progress" style="width: 90%"></div>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <section class="section-certification">
+      <h2 class="section-title">Certification</h2>
+      <div class="box-serifikat">
+          <img src="https://placehold.co/300x200" alt="Certification Image">
+          <h3 class="title-sertif">example</h3>
+          <div class="linkhref">
+              <a href="https://google.com">view more <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+      </div>
+  </section>
+
+  <section class="projects-section">
+      <h2 class="section-title">Featured Projects</h2>
+      <div class="projects-container">
+          <div class="project-card">
+              <div class="project-image">
+                  <div class="showlink">
+                      <a href="#"><i class="fab fa-github"></i> Github</a>
+                      <a href="#"><i class="fas fa-external-link-alt"></i> Demo</a>
+                  </div>
+                  <img src="https://placehold.co/400x400" alt="Project 1">
+              </div>
+              <div class="project-info">
+                  <h3>E-Commerce Platform</h3>
+                  <p>A secure online shopping platform built with PHP and MySQL</p>
+                  <div class="project-tags">
+                      <span class="tag">PHP</span>
+                      <span class="tag">MySQL</span>
+                      <span class="tag">JavaScript</span>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <section class="contact-section">
+      <h2 class="section-title">Get In Touch</h2>
+      <div class="contact-form">
+          <form id="contact-form">
+              <div class="form-group">
+                  <input type="text" placeholder="Your Name" required>
+              </div>
+              <div class="form-group">
+                  <input type="email" placeholder="Your Email" required>
+              </div>
+              <div class="form-group">
+                  <textarea placeholder="Your Message" rows="5" required></textarea>
+              </div>
+              <button type="submit" class="submit-btn">Send Message</button>
+          </form>
+      </div>
+  </section>';
+
+  jsallow('home');
+  footerku();
+  endhtml();
 }
+
 
 function endhtml(){
     echo'</body></html>';
@@ -318,4 +353,40 @@ function getsetting($setting){
   $stmt = $db->prepare($query);
   $stmt->execute([$setting]);
   return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+// footer function to show up
+function footerku() {
+  echo<<<HTML
+  <footer class="kontainer-footer">
+    <div class="kontainermain">
+    <div class="kontainer-box">
+     <h3 class="title-footer">About Me</h3>
+       <span> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nisi dolor cum cumque maxime doloremque quidem error recusandae. Dolorum, ab quae?</span>  
+     </div> 
+     <i class="sparator"></i>
+       <div class="kontiner-social">
+       <h3 class="title-footer">Connect with Me</h3>
+            <a href=""><i class="fab fa-github"></i>Github</a>
+            <a href=""><i class="fab fa-instagram"></i>Instagram</a>
+            <a href=""><i class="fab fa-twitter"></i>Twitter</a>
+            <a href=""><i class="fab fa-linkedin-in"></i>LinkID</a>
+       </div>
+
+    </div>
+   <div class="credit-github">
+  <span class="credit-text"><i class="fab fa-github"></i> Made With <i class="fa fa-heart"></i> By <a href="#">Nameraid</a></span>
+ </div>
+  </footer>
+
+ HTML;
+
+}
+function logout(){
+  session_destroy();
+  showhome();
+}
+// function untuk memenengement semuanya
+function showManage(){
+  print_start('dashboard','admin');
+  
 }

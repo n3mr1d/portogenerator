@@ -2,44 +2,58 @@
 function route(){
     $path = $_SERVER['REQUEST_URI'];
     
-    if(isset($_POST['inputproject'])) {
-        handleProjectSubmission();
-        return; // Exit after handling submission
-    }elseif(isset($_POST['username']) && isset($_POST['login'])){
+    if(isset($_POST['username']) && isset($_POST['login'])){
         validate($_POST['username'], $_POST['password']);
         return;
-    }elseif(isset($_POST['username']) && isset($_POST['register'])){
+    } else if(isset($_POST['username']) && isset($_POST['register'])){
         if(isAdminsTableEmpty()){
             registeradmin($_POST['username'],$_POST['password']);
             loginform();
             exit;
-        }else{
+        } else {
             loginform();
             return;
         }
-  }elseif(isset($_POST['action']) && $_POST['action']== 'delete'){
-  del($_POST['id']);
-  }elseif(isset($_POST['action']) && $_POST['action']=='update'){
-    update($_POST['id']);
-  }elseif(isset($_POST['action']) && $_POST['action']=="addcry"){
-    addcry($_POST['name'],$_POST['address'],$_POST['icon']);
-  }
-  $get = $_GET;
-  if(isAdminsTableEmpty()){
+    }
+    
+    $get = $_GET;
+    if(isAdminsTableEmpty()){
         regis();
-    }elseif($path == "/index.php" || $path == "/"){
-     showhome();
-    }elseif($path == "/login"){
+    } else if($path == "/index.php" || $path == "/"){
+        showhome();
+    } else if($path == "/login"){
         loginform();
-    }elseif($path == "/add-project"){
-        showaddprojectform();
-    }elseif($get['action'] == 'edit'){
-    editingpage($get['id']);
-    }elseif($path=="/donate"){
-    showdonate();
-  }elseif($path == "/settings"){
-    showsettings();
-  }else{
-    showhome();
-  }
+    } else if($path == "/donate"){
+        showdonate();
+    } else if($path == "/logout"){
+        logout();
+    } else {
+        showhome();
+    }
+    
+    // route Login
+    if(isset($_SESSION['user_id'])){
+        if($path == "/dashboard"){
+            showManage();
+        } else if($path == "/logout"){
+            logout();
+        } else if($path == "/add-project"){
+            showaddprojectform();
+        } else if($get['action'] == 'edit'){
+            editingpage($get['id']);
+        }
+        
+        if(isset($_POST['inputproject'])){
+            handleProjectSubmission();
+            return;
+        } else if(isset($_POST['action']) && $_POST['action'] == 'delete'){
+            del($_POST['id']);
+        } else if(isset($_POST['action']) && $_POST['action'] == 'update'){
+            update($_POST['id']);
+        } else if(isset($_POST['action']) && $_POST['action'] == "addcry"){
+            addcry($_POST['name'],$_POST['address'],$_POST['icon']);
+        }
+    }else{
+      showhome();
+    }
 }

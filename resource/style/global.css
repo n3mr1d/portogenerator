@@ -285,4 +285,65 @@ justify-content:center;
 .kontainer-icon i {
   font-size:30px;
 }
+.kontainer-footer{
+    display:flex;
+    background-color:#161C20;
+    align-items: center;
+    padding: 50px 20px 10px 20px;
+    justify-content: center;
+    flex-direction: column;
+}
+.kontainermain{
+    display: flex;
+    margin-bottom: 30px;
+    max-width: 80%;
 
+    color: var(--font-color-white);
+}
+.kontiner-social a{
+text-decoration: none;
+display: block;
+font-size: large;
+color:var(--font-color-white);
+}
+.kontiner-social{
+    width: 100%;
+
+}
+
+.sparator::after{
+    content: "";
+    background-color:var(--icon-color);
+    height: 100%;
+    width: 3px;
+    box-shadow: -1px 1px 1px 1px var(--icon-color);
+margin: 10px;
+    display: block;
+}
+.kontiner-social a i {
+    margin-right: 10px;
+}
+.title-footer{
+    font-weight: 700;
+    color: var(--font-color-white);
+    text-align: center;
+    position: relative;
+    padding-bottom: 1rem;
+    margin-bottom: 10px;
+}
+.title-footer::after{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 4px;
+    background: var(--icon-color);
+    border-radius: 2px;
+}
+.credit-github a{
+    text-decoration: none;
+    font-weight: bolder;
+    color: var(--font-color-white);
+}
