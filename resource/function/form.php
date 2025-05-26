@@ -116,8 +116,6 @@ function registeradmin($username,$password){
 }
 // fungsi untuk menambahkan sebuah proyek baru
 function showaddprojectform() {
-
-    
     print_start("addproject","showform");
     echo<<<HTML
       <div class="kontainer-form">

@@ -108,7 +108,52 @@ function jsallow(string $name){
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto voluptatibus maxime debitis rerum sunt ex error numquam nisi minus, ipsa reiciendis corporis? Laboriosam odio vel quod saepe maiores explicabo recusandae, praesentium vero sed tenetur laborum iusto, amet voluptates deserunt.</p>
       </div>
   </section>
+  <section class="github-section">
+      <h2 class="section-title">GitHub Profile</h2>
+      <div class="kontainer-github">
+          <img src="https://placehold.co/200x200" alt="GitHub Avatar" id="github-avatar">
 
+          <div id="info-git">
+              <div class="user-flex">
+                  <span class="label">Name:</span>
+                  <div id="username" class="info-value"></div>
+              </div>
+              
+              <div class="kontainer-git">
+                  <div class="block-git">
+                      <span class="label">Followers</span>
+                      <div id="followers" class="info-count"></div>
+                  </div>
+                  <div class="block-git">
+                      <span class="label">Following</span>
+                      <div id="following" class="info-count"></div>
+                  </div>
+                  <div class="block-git">
+                      <span class="label">Repos</span>
+                      <div id="repo" class="info-count"></div>
+                  </div>
+              </div>
+              
+              <div class="user-flex">
+                  <span class="label">Bio:</span>
+                  <div id="bio" class="info-value"></div>
+              </div>
+              
+              <div class="button-git">
+                  <a id="urlgit" class="button-github" href="" target="_blank">
+                      <i class="fab fa-github"></i> View Profile <i class="fas fa-external-link-alt"></i>
+                  </a>
+              </div>
+          </div>
+      </div>
+      
+      <h3>Contribution Activity</h3>
+      <div id="kontainer-contributions">
+        <span>Total Contributions</span>
+        <span id="total-contributions"></span>
+      </div>
+      <div id="contribution-calendar" class="contribution-calendar"></div>
+  </section>
   <section class="section-history">
       <h2 class="section-title">Graduate</h2>
       <div class="history-container">
@@ -379,6 +424,7 @@ function footerku() {
   </footer>
 
  HTML;
+
 
 }
 function logout(){
